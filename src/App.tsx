@@ -19,10 +19,11 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import chatapp from '../public/images/chatapp.jpg';
-import ecomMicro from '../public/images/e-com.jpg';
-import musicapp from '../public/images/musicapp.jpg';
-import cloth from '../public/images/cloth.jpg';
+import chatapp from '/images/chatapp.jpg';
+import ecomMicro from '/images/e-com.jpg';
+import musicapp from '/images/musicapp.jpg';
+import cloth from '/images/cloth.jpg';
+
 
 interface Project {
   title: string;
@@ -49,6 +50,31 @@ const Portfolio: React.FC = () => {
   const [typedText, setTypedText] = useState<string>('');
   const [currentRoleIndex, setCurrentRoleIndex] = useState<number>(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
+  // SEO Helper function
+const addStructuredData = () => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Trần Vũ Duy Developer",
+    "description": "Software Engineering student portfolio showcasing projects and skills",
+    "url": window.location.href,
+    "author": {
+      "@type": "Person",
+      "name": "Trần Vũ Duy"
+    }
+  };
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.text = JSON.stringify(structuredData);
+  document.head.appendChild(script);
+};
+
+  // Call trong useEffect
+  useEffect(() => {
+    addStructuredData();
+  }, []);
 
   const roles = [
     'Software Engineering Student',
