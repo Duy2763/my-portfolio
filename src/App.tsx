@@ -311,9 +311,10 @@ const addStructuredData = () => {
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          <h1 className="sr-only">Trần Vũ Duy - Software Engineering Student Portfolio</h1>
+          <div className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             Trần Vũ Duy
-          </h1>
+          </div>
           
           <div className="text-2xl md:text-3xl mb-8 font-mono">
             <span className="text-gray-300">I'm a </span>
