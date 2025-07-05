@@ -118,7 +118,7 @@ const Portfolio: React.FC = () => {
   const projects: Project[] = [
     {
       title: 'Fashion E-Commerce Microservices',
-      description: 'Dự án E-Commerce về thời trang sử dụng kiến trúc microservices với các chức năng cốt lõi như quản lý sản phẩm, đơn hàng, thanh toán, và kho.',
+      description: 'Fashion E-Commerce project using microservices architecture with core functionalities including product management, orders, payments, and inventory.',
       technologies: ['React.js', 'Spring Boot', 'Node.js', 'JWT', 'API Gateway', 'Redis', 'Kafka', 'Docker'],
       gitlab: 'https://gitlab.com/vuongng2212/kttkpm-nhomabc-fashionecommerce',
       type: 'Team Project',
@@ -127,7 +127,7 @@ const Portfolio: React.FC = () => {
     },
     {
       title: 'E-commerce Clothing Website',
-      description: 'Website thương mại điện tử cho phép người dùng mua sắm quần áo trực tuyến với giỏ hàng, xử lý thanh toán và quản lý đơn hàng.',
+      description: 'E-commerce website that allows users to shop for clothing online with shopping cart, payment processing, and order management features.',
       technologies: ['React', 'Vite', 'Spring Boot', 'Hibernate', 'MySQL', 'JWT'],
       gitlab: 'https://gitlab.com/Duy2763/01-springboot',
       type: 'Full Stack Project',
@@ -136,7 +136,7 @@ const Portfolio: React.FC = () => {
     },
     {
       title: 'Real-time Chat Application',
-      description: 'Ứng dụng chat thời gian thực lấy cảm hứng từ Zalo, hỗ trợ tin nhắn trực tiếp, quản lý nhóm và giao tiếp real-time.',
+      description: 'Real-time chat application inspired by Zalo, supporting direct messaging, group management, and real-time communication using WebSockets.',
       technologies: ['React', 'Vite', 'React Native', 'Spring Boot', 'WebSocket', 'JWT'],
       gitlab: 'https://gitlab.com/Duy2763/01-chatapp-springboot.git',
       type: 'Real-time Application',
@@ -145,7 +145,7 @@ const Portfolio: React.FC = () => {
     },
     {
       title: 'Music Player App',
-      description: 'Ứng dụng nghe nhạc cho phép người dùng tìm kiếm và phát nhạc theo album, bảng xếp hạng và nghệ sĩ.',
+      description: 'Music streaming application that allows users to search and play music by album, charts, and artists with playlist management features.',
       technologies: ['React Native', 'Node.js', 'Express.js', 'MongoDB', 'Mongoose'],
       github: 'https://github.com/Duy2763/Music_App_Backend',
       type: 'Mobile Application',
@@ -154,7 +154,7 @@ const Portfolio: React.FC = () => {
     },
     {
       title: 'Bookstore Management System',
-      description: 'Ứng dụng quản lý hiệu sách xử lý tồn kho, bán hàng, đơn hàng và doanh thu với giao diện Java Swing.',
+     description: 'Bookstore management system handling inventory, sales, orders, and revenue tracking with Java Swing desktop interface.',
       technologies: ['Java Swing', 'JDBC', 'MySQL'],
       github: 'https://github.com/Duy2763/QuanLyHieuSach',
       type: 'Desktop Application',
