@@ -598,7 +598,7 @@ const addStructuredData = () => {
                     <Instagram size={20} className="text-gray-400 group-hover:text-pink-500" />
                     <span className="text-sm">Instagram</span>
                   </a>
-                  <a href="https://www.linkedin.com/in/tr%E1%BA%A7n-v%C5%A9-duy-88b622372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors group">
+                  <a href="http://linkedin.com/in/tranvuduy-dev" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors group">
                     <Linkedin size={20} className="text-gray-400 group-hover:text-blue-400" />
                     <span className="text-sm">LinkedIn</span>
                   </a>
@@ -697,7 +697,7 @@ const addStructuredData = () => {
               <a href="https://www.instagram.com/vuduyy27?igsh=MXN4eGlnZTh4cDZkdg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-500 transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/tr%E1%BA%A7n-v%C5%A9-duy-88b622372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">
+              <a href="http://linkedin.com/in/tranvuduy-dev" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-400 transition-colors">
                 <Linkedin size={20} />
               </a>
               <a href="mailto:tduy2706@gmail.com" className="text-gray-400 hover:text-cyan-400 transition-colors">
