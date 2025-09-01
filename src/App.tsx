@@ -853,22 +853,52 @@
 
 // export default Portfolio;
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const Portfolio: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleUserInteraction = () => {
+      video.muted = false;
+      video.play();
+      // Xóa event listener sau khi đã kích hoạt
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+
+    // Thêm listeners cho user interaction
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('touchstart', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="min-h-screen bg-black flex items-center justify-center relative">
       <video
+        ref={videoRef}
         autoPlay
         loop
+        muted
         playsInline
-        controls
         className="max-w-full max-h-full object-contain"
       >
-        <source src="/path/to/your/video.mp4" type="video/mp4" />
-        <source src="/path/to/your/video.webm" type="video/webm" />
+        <source src="/videos/hcd.mp4" type="video/mp4" />
+        <source src="/videos/hcd.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
+      
+      
     </div>
   );
 };
