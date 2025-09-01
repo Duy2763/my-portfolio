@@ -861,12 +861,12 @@ const Portfolio: React.FC = () => {
       <video
         autoPlay
         loop
-        
         playsInline
+        controls
         className="max-w-full max-h-full object-contain"
       >
-        <source src="/videos/hcd.mp4" type="video/mp4" />
-        <source src="/videos/hcd.mp4.webm" type="video/webm" />
+        <source src="/path/to/your/video.mp4" type="video/mp4" />
+        <source src="/path/to/your/video.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
     </div>
