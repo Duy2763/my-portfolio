@@ -894,7 +894,6 @@ const Portfolio: React.FC = () => {
         className="max-w-full max-h-full object-contain"
       >
         <source src="/videos/hcd.mp4" type="video/mp4" />
-        <source src="/videos/hcd.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
 
