@@ -884,20 +884,19 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center relative">
+    <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
       <video
         ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
-        className="max-w-full max-h-full object-contain"
+        className="w-full h-full object-cover"
       >
         <source src="/videos/ma.mp4" type="video/mp4" />
         <source src="/videos/ma.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
-      
       
     </div>
   );
