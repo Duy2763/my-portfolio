@@ -17,12 +17,16 @@ import {
   Facebook,
   Instagram,
   Menu,
-  X
+  X,
+  Award,
+  Building2,
+  Trophy
 } from 'lucide-react';
 import chatapp from '/images/chatapp.jpg';
 import ecomMicro from '/images/e-com.jpg';
 import musicapp from '/images/musicapp.jpg';
 import cloth from '/images/cloth.jpg';
+import event from '/images/event.png';
 
 
 interface Project {
@@ -31,16 +35,19 @@ interface Project {
   technologies: string[];
   github?: string;
   gitlab?: string;
+  gitlabs?: { label: string; url: string }[];
   demo?: string;
   type: string;
   features: string[];
   image: string;
+  award?: string;
+  awardImages?: string[];
 }
 
 interface Skill {
   name: string;
   level: number;
-  category: 'frontend' | 'backend' | 'database' | 'tools';
+  category: 'frontend' | 'backend' | 'database' | 'tools' | 'ai';
   icon: string;
 }
 
@@ -51,50 +58,43 @@ const Portfolio: React.FC = () => {
   const [currentRoleIndex, setCurrentRoleIndex] = useState<number>(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
-  // SEO Helper function
-const addStructuredData = () => {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Trần Vũ Duy Developer",
-    "description": "Software Engineering student portfolio showcasing projects and skills",
-    "url": window.location.href,
-    "author": {
-      "@type": "Person",
-      "name": "Trần Vũ Duy"
-    }
+  const addStructuredData = () => {
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Trần Vũ Duy Developer",
+      "description": "Java Developer portfolio showcasing projects and skills",
+      "url": window.location.href,
+      "author": {
+        "@type": "Person",
+        "name": "Trần Vũ Duy"
+      }
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
   };
 
-  const script = document.createElement('script');
-  script.type = 'application/ld+json';
-  script.text = JSON.stringify(structuredData);
-  document.head.appendChild(script);
-};
-
-  // Call trong useEffect
   useEffect(() => {
     addStructuredData();
   }, []);
 
   const roles = [
-    'Software Engineering Student',
+    'Java Developer',
     'Full Stack Developer',
     'Problem Solver',
     'Tech Enthusiast'
   ];
 
-  // Typing animation
   useEffect(() => {
     const typeText = async () => {
       const text = roles[currentRoleIndex];
-      // Type out
       for (let i = 0; i <= text.length; i++) {
         setTypedText(text.slice(0, i));
         await new Promise(resolve => setTimeout(resolve, 100));
       }
-      // Wait
       await new Promise(resolve => setTimeout(resolve, 2000));
-      // Delete
       for (let i = text.length; i >= 0; i--) {
         setTypedText(text.slice(0, i));
         await new Promise(resolve => setTimeout(resolve, 50));
@@ -104,7 +104,6 @@ const addStructuredData = () => {
     typeText();
   }, [currentRoleIndex]);
 
-  // Intersection Observer for animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -117,10 +116,8 @@ const addStructuredData = () => {
       },
       { threshold: 0.1 }
     );
-
     const sections = document.querySelectorAll('section[id]');
     sections.forEach(section => observer.observe(section));
-
     return () => observer.disconnect();
   }, []);
 
@@ -128,50 +125,63 @@ const addStructuredData = () => {
     { name: 'React.js', level: 85, category: 'frontend', icon: '⚛️' },
     { name: 'React Native', level: 50, category: 'frontend', icon: '📱' },
     { name: 'TypeScript', level: 75, category: 'frontend', icon: '🔷' },
-    { name: 'Vite', level: 80, category: 'tools', icon: '⚡' },
-    { name: 'Tailwind CSS', level: 30, category: 'frontend', icon: '🎨' },
+    { name: 'Tailwind CSS', level: 75, category: 'frontend', icon: '🎨' },
     { name: 'Java', level: 85, category: 'backend', icon: '☕' },
     { name: 'Spring Boot', level: 80, category: 'backend', icon: '🍃' },
     { name: 'Node.js', level: 85, category: 'backend', icon: '🟢' },
     { name: 'Express.js', level: 85, category: 'backend', icon: '🚀' },
+    { name: 'Gemini API', level: 75, category: 'ai', icon: '🤖' },
     { name: 'MySQL', level: 80, category: 'database', icon: '🐬' },
     { name: 'MongoDB', level: 80, category: 'database', icon: '🍃' },
     { name: 'Docker', level: 60, category: 'tools', icon: '🐳' },
     { name: 'Git', level: 90, category: 'tools', icon: '📋' },
-    { name: 'JWT', level: 75, category: 'backend', icon: '🔐' }
+    { name: 'JWT', level: 75, category: 'backend', icon: '🔐' },
+    { name: 'Kafka', level: 65, category: 'backend', icon: '📨' },
+    { name: 'AWS (S3/IAM)', level: 55, category: 'tools', icon: '☁️' },
   ];
 
   const projects: Project[] = [
     {
+      title: 'Event Management System with Smart Suggestion Tools',
+      description: 'Graduation thesis – Award-winning online platform for event planning at IUH. Automates content creation, communication strategy, and post-event reporting using Gemini AI assistance.',
+      technologies: ['Java', 'Spring Boot', 'MongoDB', 'Gemini-2.5 Flash', 'React.js', 'TailwindCSS', 'JWT'],
+      gitlab: 'https://gitlab.com/event-management-system-duy-anh-2025',
+      type: 'Graduation Thesis',
+      award: '🏆 Potential Award – IUH Student Scientific Research Conference 2025',
+      features: ['AI Content Generation', 'Event Planning Automation', 'Role-based Access', 'Real-time Dashboards'],
+      image: event,
+      awardImages: ['/images/award1.jpg', '/images/award2.jpg', '/images/award3.png']
+    },
+    {
       title: 'Fashion E-Commerce Microservices',
-      description: 'Fashion E-Commerce project using microservices architecture with core functionalities including product management, orders, payments, and inventory.',
-      technologies: ['React.js', 'Spring Boot', 'Node.js', 'JWT', 'API Gateway', 'Redis', 'Kafka', 'Docker'],
+      description: 'Microservices-based fashion e-commerce platform with API Gateway, event-driven inventory management via Kafka, and React.js admin dashboard.',
+      technologies: ['React.js', 'Spring Boot', 'Spring Cloud Gateway', 'Kafka', 'MySQL', 'Redis', 'Docker'],
       gitlab: 'https://gitlab.com/vuongng2212/kttkpm-nhomabc-fashionecommerce',
-      type: 'Team Project',
-      features: ['Microservices Architecture', 'API Gateway', 'Message Queue', 'Containerization'],
+      type: 'Academic Project',
+      features: ['Microservices Architecture', 'API Gateway', 'Event-driven Inventory', 'Circuit Breaker'],
       image: ecomMicro
     },
     {
-      title: 'E-commerce Clothing Website',
-      description: 'E-commerce website that allows users to shop for clothing online with shopping cart, payment processing, and order management features.',
-      technologies: ['React', 'Vite', 'Spring Boot', 'Hibernate', 'MySQL', 'JWT'],
-      gitlab: 'https://gitlab.com/Duy2763/01-springboot',
-      type: 'Full Stack Project',
-      features: ['Shopping Cart', 'Payment Processing', 'Order Management', 'User Authentication'],
-      image: cloth
-    },
-    {
       title: 'Real-time Chat Application',
-      description: 'Real-time chat application inspired by Zalo, supporting direct messaging, group management, and real-time communication using WebSockets.',
-      technologies: ['React', 'Vite', 'React Native', 'Spring Boot', 'WebSocket', 'JWT'],
+      description: 'Real-time messaging system supporting group chats, friend management, and push notifications. Optimized MongoDB queries reducing retrieval time by 25%.',
+      technologies: ['React', 'Vite', 'React Native', 'Spring Boot', 'WebSocket', 'MongoDB', 'Redis', 'JWT'],
       gitlab: 'https://gitlab.com/Duy2763/01-chatapp-springboot.git',
-      type: 'Real-time Application',
-      features: ['Real-time Messaging', 'Group Management', 'Friend Requests', 'Cross-platform'],
+      type: 'Personal Project',
+      features: ['Real-time Messaging', 'Group Management', 'Friend Requests', 'Cross-platform Mobile'],
       image: chatapp
     },
     {
+      title: 'E-commerce Clothing Website',
+      description: 'Full-stack clothing e-commerce site with product catalog, shopping cart, payments, and dynamic coupon system with validation rules.',
+      technologies: ['React', 'Vite', 'Spring Boot', 'Hibernate', 'MySQL', 'JWT'],
+      gitlab: 'https://gitlab.com/Duy2763/01-springboot',
+      type: 'Academic Project',
+      features: ['Shopping Cart', 'Payment Processing', 'Coupon System', 'Order Management'],
+      image: cloth
+    },
+    {
       title: 'Music Player App',
-      description: 'Music streaming application that allows users to search and play music by album, charts, and artists with playlist management features.',
+      description: 'Music streaming application for searching and playing music by album, charts, and artists with playlist management.',
       technologies: ['React Native', 'Node.js', 'Express.js', 'MongoDB', 'Mongoose'],
       github: 'https://github.com/Duy2763/Music_App_Backend',
       type: 'Mobile Application',
@@ -180,7 +190,7 @@ const addStructuredData = () => {
     },
     {
       title: 'Bookstore Management System',
-     description: 'Bookstore management system handling inventory, sales, orders, and revenue tracking with Java Swing desktop interface.',
+      description: 'Bookstore management system handling inventory, sales, orders, and revenue tracking with Java Swing desktop interface.',
       technologies: ['Java Swing', 'JDBC', 'MySQL'],
       github: 'https://github.com/Duy2763/QuanLyHieuSach',
       type: 'Desktop Application',
@@ -195,18 +205,15 @@ const addStructuredData = () => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Handle scroll to update active section
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 100;
-
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-          
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section);
             break;
@@ -214,7 +221,6 @@ const addStructuredData = () => {
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -311,7 +317,7 @@ const addStructuredData = () => {
             </div>
           </div>
           
-          <h1 className="sr-only">Trần Vũ Duy - Software Engineering Student Portfolio</h1>
+          <h1 className="sr-only">Trần Vũ Duy - Java Developer Portfolio</h1>
           <div className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             Trần Vũ Duy
           </div>
@@ -324,11 +330,26 @@ const addStructuredData = () => {
           </div>
           
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Software Engineering student at Industrial University of Ho Chi Minh City. 
-            Passionate about building innovative solutions and eager to contribute to real-world projects.
+            Software Engineering graduate from Industrial University of Ho Chi Minh City. 
+            Java-focused developer passionate about building scalable RESTful APIs, microservices, and AI-powered applications.
           </p>
+
+          {/* Award badge */}
+          <div className="flex justify-center mb-8">
+            <div className="flex items-center space-x-2 px-5 py-2 bg-yellow-500/10 border border-yellow-400/40 rounded-full text-yellow-300 text-sm">
+              <Trophy size={16} className="text-yellow-400" />
+              <span>🏆 Potential Award – IUH Scientific Research Conference 2025</span>
+            </div>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button 
+              onClick={() => scrollToSection('projects')}
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center font-semibold"
+            >
+              <Briefcase className="mr-2" size={20} />
+              View Projects
+            </button>
             <button 
               onClick={() => scrollToSection('contact')}
               className="px-8 py-4 border-2 border-cyan-400/50 rounded-lg hover:bg-cyan-400/10 transition-all duration-300 flex items-center justify-center"
@@ -354,37 +375,84 @@ const addStructuredData = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-3 gap-8 items-start">
+            {/* Personal Info */}
             <div className={`transition-all duration-1000 delay-200 ${isVisible.about ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 h-full">
                 <h3 className="text-2xl font-bold mb-6 text-cyan-400 flex items-center">
                   <User className="mr-3" size={28} />
                   Personal Info
                 </h3>
                 <div className="space-y-4 text-gray-300">
                   <p className="leading-relaxed">
-                    As a Software Engineering student, I am eager to gain an internship opportunity 
-                    at a company where I can learn and enhance my programming skills. I aspire to 
-                    contribute to real-world projects and develop my career in the field of software development.
+                    Java-focused Software Engineering graduate with hands-on experience building scalable RESTful APIs, 
+                    microservices, and full-stack applications using Spring Boot and React.js.
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                  <p className="leading-relaxed text-sm text-gray-400">
+                    Skilled in database design (MySQL, MongoDB), real-time systems (WebSocket, Kafka), 
+                    and AI integration (Gemini API). Passionate about building robust systems and collaborating on innovative products.
+                  </p>
+                  <div className="grid grid-cols-1 gap-3 mt-6">
                     <div className="flex items-center space-x-2">
-                      <MapPin className="text-cyan-400" size={16} />
+                      <MapPin className="text-cyan-400 shrink-0" size={16} />
                       <span>Gò Vấp, Hồ Chí Minh</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Phone className="text-cyan-400" size={16} />
-                      <div className="sm:whitespace-nowrap">
-                        (+84) 933889543 - 817270603
-                      </div>
+                      <Phone className="text-cyan-400 shrink-0" size={16} />
+                      <span>(+84) 933889543 - 817270603</span>
                     </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {['Problem Solving', 'Team Collaboration', 'Quick Learning', 'Agile/Scrum'].map((trait) => (
+                      <span key={trait} className="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full text-sm border border-cyan-400/30">
+                        {trait}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
+            {/* Work Experience */}
+            <div className={`transition-all duration-1000 delay-300 ${isVisible.about ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 h-full">
+                <h3 className="text-2xl font-bold mb-6 text-orange-400 flex items-center">
+                  <Building2 className="mr-3" size={28} />
+                  Work Experience
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex items-start justify-between mb-1">
+                      <h4 className="text-lg font-semibold text-white leading-tight">Software Testing & Deployment Intern</h4>
+                    </div>
+                    <p className="text-orange-400 font-medium text-sm">EMPOWER SC Technology Co., Ltd.</p>
+                    <p className="text-gray-400 text-xs mb-3">Jul 2025 – Sep 2025 · dimchan.com</p>
+                    <ul className="space-y-2 text-sm text-gray-300">
+                      <li className="flex items-start space-x-2">
+                        <span className="text-orange-400 mt-1">•</span>
+                        <span>Tested 7 platforms of the DIMCHAN F&amp;B/Retail ecosystem (POS, Admin, KDS, PAD, CALLME…), identifying 100+ bugs</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="text-orange-400 mt-1">•</span>
+                        <span>Integrated hardware: receipt/label printers, cash drawers, KDS screens via USB, LAN, Cloud & Bluetooth</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="text-orange-400 mt-1">•</span>
+                        <span>Produced Store Setup Manual, 6 mind maps, and tutorial videos — reducing onboarding time for new users</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <span className="text-orange-400 mt-1">•</span>
+                        <span>Conducted field deployments, trained end-users, proposed UI/UX improvements for multilingual system (VI–EN–ZH)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Education */}
             <div className={`transition-all duration-1000 delay-400 ${isVisible.about ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 h-full">
                 <h3 className="text-2xl font-bold mb-6 text-purple-400 flex items-center">
                   <GraduationCap className="mr-3" size={28} />
                   Education
@@ -393,14 +461,26 @@ const addStructuredData = () => {
                   <div>
                     <h4 className="text-xl font-semibold text-white">Software Engineering</h4>
                     <p className="text-cyan-400">Industrial University of Ho Chi Minh City</p>
-                    <p className="text-gray-400">08/2021 - Present • Fourth-year student</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {['Problem Solving', 'Team Collaboration', 'Quick Learning', 'Attention to Detail'].map((trait) => (
-                      <span key={trait} className="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full text-sm border border-cyan-400/30">
-                        {trait}
+                    <p className="text-gray-400 text-sm">Jan 2021 – Dec 2025</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-yellow-500/20 border border-yellow-400/30 rounded-full text-yellow-300 text-sm font-semibold">
+                        GPA: 3.25 / 4.0
                       </span>
-                    ))}
+                    </div>
+                    <div className="mt-3 p-3 bg-yellow-500/10 border border-yellow-400/20 rounded-lg">
+                      <div className="flex items-center space-x-2 text-yellow-300 text-sm">
+                        <Award size={14} />
+                        <span className="font-medium">Scholarship – Outstanding Academic Performance</span>
+                      </div>
+                      <p className="text-gray-400 text-xs mt-1">Semester 1, 2022–2023</p>
+                    </div>
+                    <div className="mt-3 p-3 bg-yellow-500/10 border border-yellow-400/20 rounded-lg">
+                      <div className="flex items-center space-x-2 text-yellow-300 text-sm">
+                        <Trophy size={14} />
+                        <span className="font-medium">Potential Award – IUH Research Conference</span>
+                      </div>
+                      <p className="text-gray-400 text-xs mt-1">Faculty of IT, 2nd Edition 2025</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -457,7 +537,7 @@ const addStructuredData = () => {
             {projects.map((project, index) => (
               <div 
                 key={project.title}
-                className={`bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 overflow-hidden hover:border-cyan-400/50 transition-all duration-500 hover:scale-[1.02] ${isVisible.projects ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                className={`bg-white/5 backdrop-blur-lg rounded-2xl border overflow-hidden hover:border-cyan-400/50 transition-all duration-500 hover:scale-[1.02] ${project.award ? 'border-yellow-400/40' : 'border-white/10'} ${isVisible.projects ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="relative overflow-hidden">
@@ -468,13 +548,20 @@ const addStructuredData = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 bg-cyan-500 text-cyan-900 rounded-full text-xs border border-cyan-400/30 font-semibold whitespace-nowrap">
+                    <span className={`px-3 py-1 rounded-full text-xs border font-semibold whitespace-nowrap ${project.type === 'Graduation Thesis' ? 'bg-yellow-500 text-yellow-900 border-yellow-400/30' : 'bg-cyan-500 text-cyan-900 border-cyan-400/30'}`}>
                       {project.type}
                     </span>
                   </div>
                 </div>
                 
                 <div className="p-6">
+                  {project.award && (
+                    <div className="flex items-center space-x-2 mb-3 px-3 py-2 bg-yellow-500/10 border border-yellow-400/30 rounded-lg text-yellow-300 text-xs">
+                      <Trophy size={14} />
+                      <span>{project.award}</span>
+                    </div>
+                  )}
+
                   <h3 className="text-xl font-bold mb-3 text-white hover:text-cyan-400 transition-colors">
                     {project.title}
                   </h3>
@@ -503,7 +590,7 @@ const addStructuredData = () => {
                     </div>
                   </div>
                   
-                  <div className="flex space-x-4">
+                  <div className="flex flex-wrap gap-4">
                     {project.github && (
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors text-sm">
                         <Github size={16} />
@@ -516,6 +603,12 @@ const addStructuredData = () => {
                         <span>GitLab</span>
                       </a>
                     )}
+                    {project.gitlabs && project.gitlabs.map((gl) => (
+                      <a key={gl.url} href={gl.url} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-400 hover:text-purple-400 transition-colors text-sm">
+                        <Code size={16} />
+                        <span>{gl.label}</span>
+                      </a>
+                    ))}
                     {project.demo && (
                       <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-400 hover:text-green-400 transition-colors text-sm">
                         <ExternalLink size={16} />
@@ -523,6 +616,25 @@ const addStructuredData = () => {
                       </a>
                     )}
                   </div>
+
+                  {project.awardImages && project.awardImages.length > 0 && (
+                    <div className="mt-5">
+                      <h4 className="text-sm font-semibold text-yellow-400 mb-2 flex items-center gap-1">
+                        <Trophy size={14} />
+                      </h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {project.awardImages.map((src, i) => (
+                          <a key={i} href={src} target="_blank" rel="noopener noreferrer">
+                            <img
+                              src={src}
+                              alt={`Award photo ${i + 1}`}
+                              className="w-full h-28 object-cover rounded-lg border border-yellow-400/30 hover:border-yellow-400/70 hover:scale-[1.03] transition-all duration-300 cursor-zoom-in"
+                            />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -539,7 +651,7 @@ const addStructuredData = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full"></div>
             <p className="text-gray-300 mt-6 text-lg">
-              I'm actively seeking internship opportunities and would love to discuss how I can contribute to your team!
+              Open to new opportunities — let's build something great together!
             </p>
           </div>
 
@@ -617,15 +729,15 @@ const addStructuredData = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
                     <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
-                    <span>🎯 Seeking internship opportunities</span>
+                    <span>🎯 Open to new opportunities</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3 animate-pulse"></div>
-                    <span>📚 Fourth-year Software Engineering student</span>
+                    <span>🎓 Software Engineering Graduate – IUH (Dec 2025)</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
-                    <span>🎓 Expected graduation: 2025</span>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full mr-3 animate-pulse"></div>
+                    <span>🏢 Ex-Intern @ EMPOWER SC Technology (Jul–Sep 2025)</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-2 h-2 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
@@ -646,13 +758,13 @@ const addStructuredData = () => {
                     <div className="text-4xl mb-4">🚀</div>
                     <h4 className="text-lg font-semibold mb-2">Ready to Get Started!</h4>
                     <p className="text-gray-400 text-sm mb-6">
-                      I'm excited to discuss internship opportunities and learn from experienced developers.
+                      I'm excited to bring my backend expertise and full-stack skills to your team.
                       Let's connect and build something amazing together!
                     </p>
                   </div>
                   
                   <div className="grid grid-cols-1 gap-4">
-                    <a href="mailto:tduy2706@gmail.com?subject=Internship%20Opportunity&body=Hi%20Duy,%0A%0AI'm%20interested%20in%20discussing%20an%20internship%20opportunity%20with%20you." 
+                    <a href="mailto:tduy2706@gmail.com?subject=Job%20Opportunity&body=Hi%20Duy,%0A%0AI'm%20interested%20in%20discussing%20an%20opportunity%20with%20you." 
                        className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 py-3 px-6 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 font-semibold text-center flex items-center justify-center">
                       <Mail className="mr-2" size={20} />
                       Send Email
@@ -709,143 +821,35 @@ const addStructuredData = () => {
           <div className="mt-8 text-center">
             <div className="inline-flex items-center space-x-2 text-gray-500 text-sm">
               <Zap size={16} />
-              <span>Ready for internship opportunities and exciting projects!</span>
+              <span>Java Developer · Spring Boot · React.js · AI Integration</span>
               <Star size={16} />
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Custom Styles - Added to index.css or as inline styles */}
       <style>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes bounce {
-          0%, 100% {
-            transform: translateY(0);
-            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-          }
-          50% {
-            transform: translateY(-25%);
-            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-          }
+          0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+          50% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0,0,0.2,1); }
         }
-        
-        .animate-spin {
-          animation: spin 3s linear infinite;
-        }
-        
-        .animate-pulse {
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        
-        .animate-bounce {
-          animation: bounce 1s infinite;
-        }
-        
-        /* Smooth scroll */
-        html {
-          scroll-behavior: smooth;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: #1e293b;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #22d3ee, #a855f7);
-          border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #0891b2, #9333ea);
-        }
-        
-        /* Selection styling */
-        ::selection {
-          background: rgba(34, 211, 238, 0.3);
-          color: white;
-        }
-        
-        /* Focus styles */
-        input:focus, textarea:focus, select:focus {
-          box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.3);
-        }
-        
-        /* Gradient text animation */
-        .bg-clip-text {
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        
-        /* Responsive design improvements */
-        @media (max-width: 768px) {
-          .text-5xl { font-size: 2.5rem; }
-          .text-7xl { font-size: 3.5rem; }
-          .text-4xl { font-size: 2rem; }
-        }
-        
-        /* Hover effects */
-        .hover\\:scale-105:hover {
-          transform: scale(1.05);
-        }
-        
-        .hover\\:scale-\\[1\\.02\\]:hover {
-          transform: scale(1.02);
-        }
-        
-        /* Loading states */
-        .transition-all {
-          transition-property: all;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* Glass morphism effect */
-        .backdrop-blur-lg {
-          backdrop-filter: blur(16px);
-        }
-        
-        .backdrop-blur-md {
-          backdrop-filter: blur(12px);
-        }
-        
-        /* Button hover effects */
-        button:hover {
-          filter: brightness(1.1);
-        }
-        
-        /* Image hover effects */
-        img:hover {
-          filter: brightness(1.1);
-        }
-        
-        /* Card hover effects */
-        .group:hover .group-hover\\:bg-cyan-400\\/20 {
-          background-color: rgba(34, 211, 238, 0.2);
-        }
-        
-        /* Animation delays */
-        .delay-200 {
-          animation-delay: 200ms;
-        }
-        
-        .delay-400 {
-          animation-delay: 400ms;
-        }
+        .animate-spin { animation: spin 3s linear infinite; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+        .animate-bounce { animation: bounce 1s infinite; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #22d3ee, #a855f7); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #0891b2, #9333ea); }
+        ::selection { background: rgba(34,211,238,0.3); color: white; }
+        .bg-clip-text { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .backdrop-blur-lg { backdrop-filter: blur(16px); }
+        .backdrop-blur-md { backdrop-filter: blur(12px); }
+        .hover\\:scale-105:hover { transform: scale(1.05); }
+        .hover\\:scale-\\[1\\.02\\]:hover { transform: scale(1.02); }
+        .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4,0,0.2,1); }
       `}</style>
     </div>
   );
